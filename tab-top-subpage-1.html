@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/tab-tob-subpage-1.css"/>
+		<script src="tpl/echarts.min.js"></script>
+	</head>
+
+	<body>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="nav">
+					<div class="navContent" style="margin-left: 5px;">
+						<div class='navName'>输出泵</div>
+						<div class="navStatus">CXD10098</div>
+					</div>
+					<div class="navContent">
+						<div class='navName'>状态</div>
+						<div class="navStatus">正常</div>
+					</div>
+					<div class="navContent">
+						<div class='navName'>卸油区</div>
+						<div class="navStatus">卸油区3#</div>
+					</div>
+					<div class="navContent">
+						<div class='navName'>单位</div>
+						<div class="navStatus">长辛店油库</div>
+					</div>
+				</div>
+				
+				<div class="instrumentContent">
+					<div class="echartsContent" id="instrumentMapFir"></div>
+					<div class="echartsContent" id="instrumentMapSec"></div>
+					<div class="echartsContent" id="instrumentMapThi"></div>
+				</div>
+				
+				<div class="progressBar">
+					<div class="progressBarName">使用年限</div>
+					<div class="progress">
+						<div class="timeLef">2010.02.08</div>
+						<div class="progressCon"><span class="colorForProgress"></span></div>
+						<div class="timeRig">2019.12.28</div>
+					</div>
+					<div class="unit">
+						<div class="unitLef">使用日期</div>
+						<div class="unitRig">报废日期</div>
+					</div>
+				</div>
+				<div class="progressBar">
+					<div class="progressBarName">运行寿命</div>
+					<div class="progress">
+						<div class="timeLef">0</div>
+						<div class="progressCon"><span class="colorForProgress" style="width: 20%;"></span></div>
+						<div class="timeRig">12000</div>
+					</div>
+					<div class="unit">
+						<div class="unitLef">小时</div>
+						<div class="unitMid"><span style="margin-left: 16%;">4892</span></div>
+						<div class="unitRig">小时</div>
+					</div>
+				</div>
+				<div class="progressBar">
+					<div class="progressBarName">距下次检修</div>
+					<div class="progress">
+						<div class="timeLef">0</div>
+						<div class="progressCon"><span class="colorForProgress" style="width: 50%;"></span></div>
+						<div class="timeRig">30(2017-4)</div>
+					</div>
+					<div class="unit">
+						<div class="unitLef">天</div>
+						<div class="unitMid"><span style="margin-left: 46%;">18</span></div>
+						<div class="unitRig">天</div>
+					</div>
+				</div>
+				<div class="progressBar keepInGoodRepairProgress">
+					<div class="keepInGoodRepair keepInGoodRepairLef">
+						<div class="kTop">最近巡检</div>
+						<div class="kMid">2017-2-1</div>
+						<div class="kBot" style="color: #259b24;">正常</div>
+					</div>
+					<div class="keepInGoodRepair keepInGoodRepairMid">
+						<div class="kTop">最近保养</div>
+						<div class="kMid">2017-01-18</div>
+						<div class="kBot" style="color: #259b24;">正常</div>
+					</div>
+					<div class="keepInGoodRepair keepInGoodRepairRig">
+						<div class="kTop">最近维修</div>
+						<div class="kMid">2017-12-1</div>
+						<div class="kBot" style="color: #259b24;">正常</div>
+					</div>
+				</div>
+				<div class="progressBar">
+					<div class="repairPlan">维修进度</div>
+					<div class="progressTopWord">
+						<div>申报</div>
+						<div>受理</div>
+						<div>审批</div>
+						<div>派工</div>
+						<div>维修</div>
+						<div>评价</div>
+					</div>
+					<div class="repairProgress">
+						<div class="ball" style="margin-left:6%;"></div>
+						<div class="connectLine"></div>
+						<div class="ball"></div>
+						<div class="connectLine"></div>
+						<div class="ball"></div>
+						<div class="connectLine"></div>
+						<div class="ball"></div>
+						<div class="connectLine"></div>
+						<div class="ball"></div>
+						<div class="connectLine" style="background: #bbb;"></div>
+						<div class="ball" style="border: 2px solid #aaa;"></div>
+					</div>
+					<div class="time">
+						<div>2016-12-7</div>
+						<div>2016-12-7</div>
+						<div>2016-12-8</div>
+						<div>2016-12-8</div>
+						<div>2016-12-9</div>
+						<div>2016-12-9</div>
+					</div>
+				</div>
+				
+					
+			</div>			
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false,
+			});
+			mui.plusReady(function () {
+				
+				//进度条显示
+			
+				
+				//构建区域滚动
+				mui('.mui-scroll-wrapper').scroll({
+					 scrollY: true, //是否竖向滚动
+					 scrollX: false, //是否横向滚动
+					 startX: 0, //初始化时滚动至x
+					 startY: 0, //初始化时滚动至y
+					 indicators: true, //是否显示滚动条
+					 deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+					 bounce: false, //是否启用回弹
+				});
+								
+				
+				//通过构造函数创建对象
+				var EchartsMap = function (id,unit,nameCon,min,max) {
+					this.id = id;
+					this.unit = unit;
+					this.nameCon = nameCon;
+					this.min = min;
+					this.max = max;
+				}
+				
+				//通过原型属性找打该对象的原型对象
+				var proto = EchartsMap.prototype;
+				
+				
+				//原型的函数
+				proto._initMap = function () {
+					var map = echarts.init(document.getElementById(this.id));
+					
+					map.showLoading('default',{
+						  text: '',  
+						  color: '#c23531',
+						  textColor: '#000',
+						  maskColor: 'rgba(255, 255, 255, 0.8)',
+						  zlevel: 0
+					});
+					//plus.nativeUI.showWaiting();
+					var num = (this.max - this.min)/5;
+					
+					
+					var option = {
+						series: [{
+							type: 'gauge',
+							radius: "100%",
+							min: this.min,
+            				max: this.max,
+							clockwise: true,
+							splitNumber: 10,
+							axisLine: {
+								show: true,
+								lineStyle: {
+									width: 6,
+								},
+							},
+							splitLine: {
+								show: true,
+								length: 12,
+								lineStyle: {
+									width: 3,
+								},
+			
+							},
+							axisTick: {
+								show: true,
+			
+							},
+							axisLabel: {
+								show: true,
+								distance: 2,
+								textStyle: {
+									fontSize: 10,
+								},
+							},
+							pointer: {
+								show: false,
+								length: '70%',
+								width: 4,
+							},
+							detail: {
+								formatter: '{value}'+this.unit,
+								offsetCenter: [0, "58%"],
+								textStyle: {
+									color: "auto",
+									fontSize: 11,
+								}
+							},
+							title: {
+								show: true,
+								offsetCenter: ['0%', '30%'],
+								textStyle: {
+									color: "#999999",
+									fontSize: 8,
+								}
+							},
+							data: [{
+								value: [{value: 50, name: '完成率'}],
+								name: this.nameCon,
+							}],
+			
+						}],
+			
+					}
+					
+					setInterval(function () {
+					    option.series[0].data[0].value = (Math.random() * num).toFixed(2) - 0;
+					    map.setOption(option, true);
+					    map.hideLoading();
+					},3000);
+					
+				}
+				var echartsMapFir = new EchartsMap('instrumentMapFir','bar','工作压力',0,14);
+				var echartsMapSec = new EchartsMap('instrumentMapSec','m³/h','当前流量',0,20);
+				var echartsMapThi = new EchartsMap('instrumentMapThi','℃','工作温度',0,120);
+				echartsMapFir._initMap();
+				echartsMapSec._initMap();
+				echartsMapThi._initMap();
+				
+			})
+			
+		</script>
+	</body>
+
+</html>
